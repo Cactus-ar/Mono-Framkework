@@ -12,31 +12,34 @@ namespace SpaceShoot
 {
     public class Jugador
     {
-        public Texture2D textura, laser_textura;
-        public Vector2 posicion;
-        public Rectangle limites;
+        public Texture2D textura_nave, textura_laser, textura_HP;
+        public Vector2 posicionNave, posicion_barraHP;
+        public Rectangle limites, barra_HP;
         public float cadenciaDisparos;
         public int tirosEnPantalla;
-        public int velocidad;
+        public int velocidad, vida;
         public bool haChocado;
         public List<Laser> disparos;
 
 
         public Jugador()
         {
-            posicion = new Vector2(30, 300);
+            posicionNave = new Vector2(30, 300);
+            posicion_barraHP = new Vector2(30, 30); //borde superior izquierdo
             disparos = new List<Laser>();
             velocidad = 10;
-
+            vida = 300;
             cadenciaDisparos = 10;
             tirosEnPantalla = 10;
             haChocado = false;
+            
 
         }
 
         public void Dibujar(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(textura, posicion, Color.White);
+            spriteBatch.Draw(textura_nave, posicionNave, Color.White);
+            spriteBatch.Draw(textura_HP, barra_HP, Color.White);
 
             foreach (Laser disparo in disparos)
             {
@@ -55,12 +58,12 @@ namespace SpaceShoot
 
             }else
             {
-                Laser tiro = new Laser(laser_textura);
+                Laser tiro = new Laser(textura_laser);
 
-                int nav1 = textura.Height - laser_textura.Height;
-                int nav2 = textura.Width;
+                int nav1 = textura_nave.Height - textura_laser.Height;
+                int nav2 = textura_nave.Width;
 
-                tiro.Posicion = new Vector2(posicion.X + nav2 , posicion.Y + nav1 /2);
+                tiro.Posicion = new Vector2(posicionNave.X + nav2 , posicionNave.Y + nav1 /2);
 
                 tiro.esVisible = true;
 
@@ -79,6 +82,8 @@ namespace SpaceShoot
             foreach (Laser disparo in disparos)
             {
                 disparo.Posicion.X += disparo.Velocidad;
+
+                disparo.Limites = new Rectangle((int)disparo.Posicion.X, (int)disparo.Posicion.Y, textura_laser.Width, textura_laser.Height);
 
                 if (disparo.Posicion.X > 1200)
                     disparo.esVisible = false;
@@ -101,8 +106,9 @@ namespace SpaceShoot
 
         public void CargarContenido(ContentManager content)
         {
-            textura = content.Load<Texture2D>("playerShip1_orange");
-            laser_textura = content.Load<Texture2D>("laserRed06");
+            textura_nave = content.Load<Texture2D>("playerShip1_orange");
+            textura_laser = content.Load<Texture2D>("laserRed06");
+            textura_HP = content.Load<Texture2D>("hp_unit_1");
 
         }
 
@@ -111,22 +117,29 @@ namespace SpaceShoot
             //chequear teclas
             KeyboardState estadoTeclas = Keyboard.GetState();
             if (estadoTeclas.IsKeyDown(Keys.Down))
-                posicion.Y += velocidad;
+                posicionNave.Y += velocidad;
             if (estadoTeclas.IsKeyDown(Keys.Up))
-                posicion.Y -= velocidad;
+                posicionNave.Y -= velocidad;
             if (estadoTeclas.IsKeyDown(Keys.Left))
-                posicion.X -= velocidad;
+                posicionNave.X -= velocidad;
             if (estadoTeclas.IsKeyDown(Keys.Right))
-                posicion.X += velocidad;
+                posicionNave.X += velocidad;
             if (estadoTeclas.IsKeyDown(Keys.A))
                 Disparar();
 
-            //chequear limites
+
+            //generar caja de colision de la nave
+            limites = new Rectangle((int)posicionNave.X, (int)posicionNave.Y, textura_nave.Width, textura_nave.Height);
+            //generar barra de HP
+            barra_HP = new Rectangle((int)posicion_barraHP.X, (int)posicion_barraHP.Y, vida, textura_HP.Height);
+
+
+            //chequear limites de la pantalla
             
-            if (posicion.Y < 0) posicion.Y = 0;
-            if (posicion.Y > 800 - textura.Height) posicion.Y = 800 - textura.Height;
-            if (posicion.X < 0) posicion.X = 0;
-            if (posicion.X > 600 - textura.Width) posicion.X = 600 - textura.Width;
+            if (posicionNave.Y < 0) posicionNave.Y = 0;
+            if (posicionNave.Y > 800 - textura_nave.Height) posicionNave.Y = 800 - textura_nave.Height;
+            if (posicionNave.X < 0) posicionNave.X = 0;
+            if (posicionNave.X > 600 - textura_nave.Width) posicionNave.X = 600 - textura_nave.Width;
 
             //actualizar tiros
             ActualizarTiros();
