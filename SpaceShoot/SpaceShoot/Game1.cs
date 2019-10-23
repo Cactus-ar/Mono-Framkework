@@ -14,10 +14,18 @@ namespace SpaceShoot
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Jugador jugador = new Jugador();
-        FondoEstrellado fondo = new FondoEstrellado();
 
+        //hud
+        HUD HUD = new HUD();
+
+
+        //player
+        Jugador jugador = new Jugador();
+
+        //background
+        FondoEstrellado fondo = new FondoEstrellado();
         
+        //enemigos
         List<Texture2D> texturas_enemigos = new List<Texture2D>();
         List<Enemigo> marcianos = new List<Enemigo>();
 
@@ -108,6 +116,8 @@ namespace SpaceShoot
 
 
             jugador.CargarContenido(Content);
+            HUD.CargarContenido(Content);
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -145,6 +155,7 @@ namespace SpaceShoot
                 {
                     if (enemigo.limites.Intersects(disparo.Limites))
                     {
+                        HUD.puntaje += 10;
                         enemigo.esVisible = false;
                         disparo.esVisible = false;
                     }
@@ -183,6 +194,7 @@ namespace SpaceShoot
                 {
                     if (roca.limites.Intersects(disparo.Limites))
                     {
+                        HUD.puntaje += 15;
                         roca.esVisible = false;
                         disparo.esVisible = false;
                     }
@@ -192,7 +204,8 @@ namespace SpaceShoot
                 roca.Actualizar(gameTime);
             }
 
-            
+            //HUD.Actualizar(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -275,6 +288,7 @@ namespace SpaceShoot
 
 
             jugador.Dibujar(spriteBatch);
+            HUD.Dibujar(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

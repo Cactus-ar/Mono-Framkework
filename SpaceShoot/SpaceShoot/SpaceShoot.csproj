@@ -45,6 +45,7 @@
     <Compile Include="Enemigo.cs" />
     <Compile Include="FondoEstrellado.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="HUD.cs" />
     <Compile Include="Jugador.cs" />
     <Compile Include="Laser.cs" />
     <Compile Include="Program.cs" />

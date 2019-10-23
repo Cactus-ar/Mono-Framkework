@@ -277,6 +277,13 @@
 /processorParam:TextureFormat=Color
 /build:estrellas2.png
 
+#begin fuenteHUD.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fuenteHUD.spritefont
+
 #begin hp_unit_1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -288,6 +295,9 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:hp_unit_1.png
+
+#begin kenvector_future.ttf
+/copy:kenvector_future.ttf
 
 #begin laserGreen13.png
 /importer:TextureImporter
