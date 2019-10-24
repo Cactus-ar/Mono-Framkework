@@ -20,6 +20,7 @@ namespace SpaceShoot
         public int velocidad, vida;
         public bool haChocado;
         public List<Laser> disparos;
+        Sonido sndManager = new Sonido();
 
 
         public Jugador()
@@ -67,7 +68,8 @@ namespace SpaceShoot
 
                 tiro.esVisible = true;
 
-                if(disparos.Count < tirosEnPantalla)
+                if (disparos.Count < tirosEnPantalla)
+                    sndManager.SndEfectoDisparo.Play();
                     disparos.Add(tiro);
 
                 cadenciaDisparos = 10;
@@ -109,6 +111,7 @@ namespace SpaceShoot
             textura_nave = content.Load<Texture2D>("playerShip1_orange");
             textura_laser = content.Load<Texture2D>("laserRed06");
             textura_HP = content.Load<Texture2D>("hp_unit_1");
+            sndManager.CargarContenido(content);
 
         }
 

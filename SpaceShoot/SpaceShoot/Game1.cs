@@ -1,17 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 
 //Side scrolling shooter. Porque? porque eran "exoticos" cuando era chico
-//y siempre me llamaron la atencion un poco más que los clasicos
+//y siempre me llamaron la atencion un poco más que los clasicos top down de naves
 
 namespace SpaceShoot
 {
     
     public class Game1 : Game
     {
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -33,6 +36,14 @@ namespace SpaceShoot
         //asteroides
         List<Texture2D> texturas_rocas = new List<Texture2D>();
         List<Asteroide> rocas = new List<Asteroide>();
+
+        //explosiones
+        List<Explosion> explosiones = new List<Explosion>();
+
+        //Sonido
+        Sonido sndManager = new Sonido();
+        
+
 
         Random random = new Random();
         
@@ -114,11 +125,17 @@ namespace SpaceShoot
             texturas_rocas.Add(Content.Load<Texture2D>("meteorGrey_tiny2"));    //--
 
 
-
             jugador.CargarContenido(Content);
+
+            //Sonido
+            sndManager.CargarContenido(Content);
+            MediaPlayer.Play(sndManager.Musica); //Ni bien se carga el contenido comienza a reproducirse
+            MediaPlayer.IsRepeating = true; //loop infinito de reproduccion
+            
+
             HUD.CargarContenido(Content);
 
-            // TODO: use this.Content to load your game content here
+            
         }
 
     
@@ -135,8 +152,10 @@ namespace SpaceShoot
 
             // TODO: Add your update logic here
             fondo.Actualizar(gameTime);
+
             CargarAsteroides();
             CargarEnemigos();
+            ManejarExplosiones();
 
 
             jugador.Actualizar(gameTime);
@@ -158,6 +177,13 @@ namespace SpaceShoot
                         HUD.puntaje += 10;
                         enemigo.esVisible = false;
                         disparo.esVisible = false;
+
+                        //Explota
+                        sndManager.SndEfectoExplosion.Play();
+                        Texture2D explosion = Content.Load<Texture2D>("explosion1_M");
+                        Vector2 posicion = new Vector2(enemigo.posicionEnemigo.X, enemigo.posicionEnemigo.Y);
+                        explosiones.Add(new Explosion(explosion, posicion, 4, 8));
+
                     }
                 }
 
@@ -167,12 +193,18 @@ namespace SpaceShoot
                     if(laser.Limites.Intersects(jugador.limites))
                     {
                         laser.esVisible = false;
+                        sndManager.SndEfectoExplosion.Play();
                         jugador.vida -= enemigo.danioDelArma;
                     }
 
                 }
 
                 enemigo.Actualizar(gameTime);
+
+                foreach(Explosion explota in explosiones)
+                {
+                    explota.Actualizar(gameTime);
+                }
 
             }
 
@@ -187,6 +219,13 @@ namespace SpaceShoot
                 {
                     roca.esVisible = false;
                     jugador.vida -= 30;
+
+                    //Explota
+                    sndManager.SndEfectoExplosion.Play();
+                    Texture2D explosion = Content.Load<Texture2D>("explosion3_M");
+                    Vector2 posicion = new Vector2(jugador.posicionNave.X - jugador.textura_nave.Width, jugador.posicionNave.Y - jugador.textura_nave.Height);
+                    explosiones.Add(new Explosion(explosion, posicion, 3, 3));
+
                 }
 
                 //verificar colision con disparos
@@ -197,6 +236,13 @@ namespace SpaceShoot
                         HUD.puntaje += 15;
                         roca.esVisible = false;
                         disparo.esVisible = false;
+
+
+                        //Explota
+                        sndManager.SndEfectoExplosion.Play();
+                        Texture2D explosion = Content.Load<Texture2D>("explosion2_M");
+                        Vector2 posicion = new Vector2(roca.posicion.X, roca.posicion.Y);
+                        explosiones.Add(new Explosion(explosion, posicion, 5, 6));
                     }
                 }
 
@@ -204,6 +250,7 @@ namespace SpaceShoot
                 roca.Actualizar(gameTime);
             }
 
+            
             //HUD.Actualizar(gameTime);
 
             base.Update(gameTime);
@@ -233,6 +280,19 @@ namespace SpaceShoot
             }
 
 
+        }
+
+        public void ManejarExplosiones()
+        {
+            for (int i = 0; i < explosiones.Count; i++)
+            {
+                if (!explosiones[i].esVisible) //si ya no es visible, sacarla de la lista
+                {
+                    explosiones.RemoveAt(i);
+                    i--;
+                }
+                    
+            }
         }
 
         public void CargarAsteroides()
@@ -286,6 +346,10 @@ namespace SpaceShoot
                 roca.Dibujar(spriteBatch);
             }
 
+            foreach (Explosion explota in explosiones)
+            {
+                explota.Dibujar(spriteBatch, new Vector2(explota.posicion.X, explota.posicion.Y));
+            }
 
             jugador.Dibujar(spriteBatch);
             HUD.Dibujar(spriteBatch);

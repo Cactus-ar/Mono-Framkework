@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin big_explosion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:big_explosion.wav
+
 #begin enemyBlack1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -276,6 +282,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:estrellas2.png
+
+#begin explosion1_M.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:explosion1_M.png
+
+#begin explosion2_M.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:explosion2_M.png
+
+#begin explosion3_M.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:explosion3_M.png
 
 #begin fuenteHUD.spritefont
 /importer:FontDescriptionImporter
@@ -563,6 +605,24 @@
 /processorParam:TextureFormat=Color
 /build:meteorGrey_tiny2.png
 
+#begin musica.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:musica.mp3
+
+#begin PantallaBienvenida1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:PantallaBienvenida1.png
+
 #begin playerShip1_orange.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -574,4 +634,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:playerShip1_orange.png
+
+#begin POL-the-foyer-short.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:POL-the-foyer-short.wav
+
+#begin shoot_missile.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:shoot_missile.wav
 
