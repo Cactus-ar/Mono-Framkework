@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SpaceInvaders.Engine;
 
 namespace SpaceInvaders
 {
@@ -29,8 +30,13 @@ namespace SpaceInvaders
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            Cargador.Init(this);
+            Manejador.anchoPantalla = graphics.PreferredBackBufferWidth;
+            Manejador.altoPantalla = graphics.PreferredBackBufferHeight;
 
-            // TODO: use this.Content to load your game content here
+            ManejadorEscenas.CargarEscenas();
+            ManejadorEscenas.Cambiar(Manejador.primerEscena);
+            
         }
 
        
@@ -45,7 +51,11 @@ namespace SpaceInvaders
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+
+            Manejador.tiempoDelta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Entrada.ActualizarEntrada();
+            ManejadorEscenas.Actualizar();
+            IsMouseVisible = Manejador.MostrarCursor;
 
             base.Update(gameTime);
         }
@@ -53,9 +63,11 @@ namespace SpaceInvaders
        
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            ManejadorEscenas.Dibujar(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

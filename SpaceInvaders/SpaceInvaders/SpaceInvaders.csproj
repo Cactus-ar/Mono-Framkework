@@ -44,6 +44,7 @@
     <Compile Include="Clases_Especificas\Boton.cs" />
     <Compile Include="Clases_Especificas\ControladorEnemigos.cs" />
     <Compile Include="Clases_Especificas\Enemigo.cs" />
+    <Compile Include="Clases_Especificas\FinJuego.cs" />
     <Compile Include="Clases_Especificas\LaserJugador.cs" />
     <Compile Include="Clases_Especificas\EscenaDelJuego.cs" />
     <Compile Include="Clases_Especificas\Jugador.cs" />

@@ -24,7 +24,7 @@ namespace SpaceInvaders.Clases_Especificas
 
         public override void CargarContenido()
         {
-            fuente = Cargador.ObtenerFuentes("kenvector_future");
+            fuente = Cargador.ObtenerFuentes("Arial");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using SpaceInvaders.Clases_Especificas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,10 @@ namespace SpaceInvaders.Engine
 
         public static void CargarEscenas() //Nuevas van aqui
         {
-            
+            Escena menu = new MenuInicial(0, "Menu");
+            Escena juego = new EscenaDelJuego(1, "Juego");
+            Escena fin = new FinJuego(2, "Fin");
+
 
         }
 

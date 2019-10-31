@@ -30,7 +30,7 @@ namespace SpaceInvaders.Clases_Especificas
 
         private void GenerarEnemigos()
         {
-            Texture2D texturaEnemigo = Cargador.ObtenerTextura("invader1"); //agregar mas texturas luego
+            Texture2D texturaEnemigo = Cargador.ObtenerTextura("InvaderA1"); //agregar mas texturas luego
 
             for (int i = 0; i < cantidadAncho; i++)
             {

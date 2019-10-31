@@ -60,7 +60,7 @@ namespace SpaceInvaders.Clases_Especificas
         {
             float xPos = (escala.X / 2f) + posicion.X;
             float yPos = posicion.Y;
-            LaserJugador laser = new LaserJugador(Cargador.ObtenerTextura("laser"), new Vector2(xPos, yPos), new Vector2(10f, 20f), "Bala");
+            LaserJugador laser = new LaserJugador(Cargador.ObtenerTextura("Bullet"), new Vector2(xPos, yPos), new Vector2(10f, 20f), "Bala");
             ManejadorEscenas.escenaActual.AgregarObjeto(laser);
         }
 

@@ -19,11 +19,11 @@ namespace SpaceInvaders.Clases_Especificas
         public string texto;
         private SpriteFont fuente;
 
-        public Boton(Texture2D _txt, Vector2 _pos, Vector2 _esc, string _tag) : base(_txt, _pos, _esc, _tag)
+        public Boton(Texture2D _txt, Vector2 _pos, Vector2 _esc, string _texto, string _tag) : base(_txt, _pos, _esc, _tag)
         {
             esColisionable = false;
-            texto = _tag;
-            fuente = Cargador.ObtenerFuentes("fuente");
+            texto = _texto;
+            fuente = Cargador.ObtenerFuentes("Arial");
         }
 
         public override void Actualizar()
