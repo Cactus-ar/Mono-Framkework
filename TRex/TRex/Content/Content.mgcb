@@ -13,3 +13,33 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin 100-offline-sprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:100-offline-sprite.png
+
+#begin components_neterror_resources_sounds_button-press.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:components_neterror_resources_sounds_button-press.mp3;button-press.mp3
+
+#begin components_neterror_resources_sounds_hit.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:components_neterror_resources_sounds_hit.mp3;sounds_hit.mp3
+
+#begin components_neterror_resources_sounds_score-reached.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:components_neterror_resources_sounds_score-reached.mp3;score-reached.mp3
+
