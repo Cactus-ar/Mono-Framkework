@@ -33,6 +33,8 @@ namespace TRex
         public const int TREX_POS_INICIAL_Y = ALTO_VENTANA - 16;
         public const int TREX_POS_INICIAL_X = 1;
         private const float VELOCIDAD_FADEIN = 900f;
+        private const int PUNTAJE_POS_X = LARGO_VENTANA - 130;
+        private const int PUNTAJE_POS_Y = 10;
 
 
         //-- Declarar variables de Sonido
@@ -52,6 +54,7 @@ namespace TRex
 
         //--Entidades
         private Trex _trex;
+        private ManagerDeObstaculos _obstaculos;
         private ManagerDeTerreno _terreno;
         private MostrarPuntaje _puntajes;
         private EstadosDelJuego _estadosDelJuego;
@@ -101,16 +104,18 @@ namespace TRex
             _trex.OrdenDeDibujo = 10;
             _trex.SaltoCompleto += trex_SaltoCompleto;
 
-            _puntajes = new MostrarPuntaje(_hojaDeImagenes, new Vector2(LARGO_VENTANA - 100, 10));
-            _puntajes.Puntaje = 498;
+            _puntajes = new MostrarPuntaje(_hojaDeImagenes, new Vector2(PUNTAJE_POS_X, PUNTAJE_POS_Y), _trex);
+            //_puntajes.Puntaje = 498;
+            //_puntajes.PuntajeRecord = 12345;
 
             _entrada = new ControladorDeEntrada(_trex);
-            
             _terreno = new ManagerDeTerreno(_hojaDeImagenes, _manager, _trex);
+            _obstaculos = new ManagerDeObstaculos(_hojaDeImagenes, _manager, _trex, _puntajes);
             
             _manager.Agregar(_trex);
             _manager.Agregar(_terreno);
             _manager.Agregar(_puntajes);
+            _manager.Agregar(_obstaculos);
             _terreno.Inicializar();
         }
 
@@ -120,6 +125,7 @@ namespace TRex
             {
                 _estadosDelJuego = EstadosDelJuego.Jugando;
                 _trex.Inicializar();
+                _obstaculos.estaActivo = true;
             }
         }
 

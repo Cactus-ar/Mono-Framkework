@@ -32,7 +32,11 @@ namespace TRex.Entidades
         public const int TREX_AGACHADO_SPRITE_ALTO = 52;
         private const int TREX_AGACHADO_SPRITE_UNO_X = TREX_SPRITE_POS_X + TREX_SPRITE_POS_ANCHO * 6;
         private const int TREX_AGACHADO_SPRITE_UNO_Y = 0;
-        private const float VELOCIDAD_TREX_INICIAL = 240f;
+
+        public const float VELOCIDAD_TREX_INICIAL = 280f;
+        public const float VELOCIDAD_TREX_MAXIMA = 900f;
+
+        private const float ACELERACION = 5f;
 
         public event EventHandler SaltoCompleto;
 
@@ -207,6 +211,14 @@ namespace TRex.Entidades
             {
                 _agachado.Actualizar(gameTime);
             }
+
+            if(Estado != EstadosDelTRex.Oscioso)
+            {
+                Velocidad += ACELERACION * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+
+            if (Velocidad > VELOCIDAD_TREX_MAXIMA)
+                Velocidad = VELOCIDAD_TREX_MAXIMA;
 
             _velocidadAlArrojarse = 0;
 

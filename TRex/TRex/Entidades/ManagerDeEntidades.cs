@@ -77,5 +77,11 @@ namespace TRex.Entidades
             _listaDeEntidadesParaRemover.AddRange(_listaDeEntidades);
         }
 
+
+        public IEnumerable<T> ObtenerEntidadesDelTipo<T>() where T: IEntidadesDelJuego
+        {
+            return _listaDeEntidades.OfType<T>();
+        }
+
     }
 }
